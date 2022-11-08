@@ -1,5 +1,6 @@
 package com.example.newsclientapp.utils;
 
+import com.example.newsclientapp.CategoryModelAdapter;
 import com.example.newsclientapp.models.ArticleModel;
 import com.example.newsclientapp.models.CategoryModel;
 

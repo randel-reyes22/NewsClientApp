@@ -2,6 +2,7 @@ package com.example.newsclientapp;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -21,10 +22,18 @@ public class CategoryModelAdapter extends RecyclerView.Adapter<CategoryModelAdap
     private CategoryClickInterface categoryClickInterface;
     int selectedPosition = 0;
 
+    public CategoryModelAdapter(ArrayList<CategoryModel> categoryRVModals, Context context, CategoryClickInterface categoryClickInterface) {
+        this.categoryModels = categoryRVModals;
+        this.context = context;
+        this.categoryClickInterface = categoryClickInterface;
+    }
+
+
     @NonNull
     @Override
     public CategoryModelAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_items,parent,false);
+        return new CategoryModelAdapter.ViewHolder(view);
     }
 
     @Override
