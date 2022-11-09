@@ -37,23 +37,21 @@ public class NewsModelAdapter extends RecyclerView.Adapter<NewsModelAdapter.View
         ArticleModel articles = articlesArrayList.get(position);
         holder.subTitleTV.setText(articles.getDescription());
         holder.titleTV.setText(articles.getTitle());
-        holder.publishedAtTV.setText("Date of Published: " + articles.getPublishedAt());
+        holder.publishedAtTV.setText(articles.getPublishedAt());
         Picasso.get().load(articles.getUrlToImage()).into(holder.newsIV);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(context,NewsDetails.class);
-                i.putExtra("title",articles.getTitle());
-                i.putExtra("author",articles.getAuthor());
-                i.putExtra("publishedAt",articles.getPublishedAt());
-                i.putExtra("content",articles.getContent());
-                i.putExtra("description",articles.getDescription());
-                i.putExtra("image",articles.getUrlToImage());
-                i.putExtra("url",articles.getUrl());
-                context.startActivity(i);
 
-            }
-        });
+        /*holder.itemView.setOnClickListener(view -> {
+            Intent i = new Intent(context,NewsDetails.class);
+            i.putExtra("title",articles.getTitle());
+            i.putExtra("author",articles.getAuthor());
+            i.putExtra("publishedAt",articles.getPublishedAt());
+            i.putExtra("content",articles.getContent());
+            i.putExtra("description",articles.getDescription());
+            i.putExtra("image",articles.getUrlToImage());
+            i.putExtra("url",articles.getUrl());
+            context.startActivity(i);
+
+        });*/
     }
 
     @Override

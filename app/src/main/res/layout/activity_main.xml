@@ -4,70 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#121212"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            >
-
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="141dp"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/logo"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"/>
-
-
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
-
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/idRVCategories"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        tools:listitem="@layout/category_items"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/category_items"></androidx.recyclerview.widget.RecyclerView>
 
-        >
-    </androidx.recyclerview.widget.RecyclerView>
 
-    <!--tools:listitem="@layout/news_rv_item"-->
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/idRVNews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/idRVNews"
-
         android:layout_below="@id/idRVCategories"
         android:layout_marginTop="10dp"
+        android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical">
+        tools:listitem="@layout/news_items">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <ProgressBar
+        android:id="@+id/idPBLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:id="@+id/idPBLoading"
-        android:visibility="gone"
         android:indeterminateTint="#F74F4F"
-        >
+        android:visibility="gone">
 
     </ProgressBar>
-
-
 
 </RelativeLayout>

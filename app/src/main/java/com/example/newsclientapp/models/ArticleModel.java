@@ -1,5 +1,8 @@
 package com.example.newsclientapp.models;
 
+import java.time.Instant;
+
+
 public class ArticleModel {
     private String title;
     private String author;
@@ -36,7 +39,7 @@ public class ArticleModel {
     }
 
     public String getPublishedAt() {
-        return publishedAt;
+        return publishedAt.substring(0,10);
     }
 
     public void setPublishedAt(String publishedAt) {

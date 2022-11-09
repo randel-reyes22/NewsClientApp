@@ -28,7 +28,6 @@ public class CategoryModelAdapter extends RecyclerView.Adapter<CategoryModelAdap
         this.categoryClickInterface = categoryClickInterface;
     }
 
-
     @NonNull
     @Override
     public CategoryModelAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,31 +44,20 @@ public class CategoryModelAdapter extends RecyclerView.Adapter<CategoryModelAdap
             public void onClick(View view) {
                 int position= holder.getAdapterPosition();
                 categoryClickInterface.onCategoryClick(position);
-                // update position
                 selectedPosition=position;
-                // notify
                 notifyDataSetChanged();
             }
         });
-        // check conditions
+
         if(selectedPosition==position)
         {
-            // When current position is equal
-            // to selected position
-            // set red background color
-            holder.categoryRV.setBackgroundColor(Color.RED);
-            // set white text color
-            holder.categoryTV.setTextColor(Color.WHITE);
-
+            holder.categoryRV.setBackgroundColor(Color.WHITE);
+            holder.categoryTV.setTextColor(Color.BLACK);
         }
         else
         {
-            // when current position is different
-            // set white background
-            holder.categoryRV.setBackgroundColor(Color.WHITE);
-            // set black text color
-            holder.categoryTV.setTextColor(Color.BLACK);
-
+            holder.categoryRV.setBackgroundColor(0x121212);
+            holder.categoryTV.setTextColor(Color.WHITE);
         }
     }
 

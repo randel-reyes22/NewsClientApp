@@ -4,6 +4,8 @@ import com.example.newsclientapp.CategoryModelAdapter;
 import com.example.newsclientapp.models.ArticleModel;
 import com.example.newsclientapp.models.CategoryModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class Utility {

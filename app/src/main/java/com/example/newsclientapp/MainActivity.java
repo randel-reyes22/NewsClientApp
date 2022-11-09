@@ -23,22 +23,31 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements CategoryModelAdapter.CategoryClickInterface{
 
     private RecyclerView newsRV, categoryRV;
     private ProgressBar loadingPB;
     private CategoryModelAdapter categoryModelAdapter;
     private NewsModelAdapter newsModelAdapter;
+    private ArrayList<ArticleModel> articlesArrayList;
+    private ArrayList<CategoryModel> categoryRVModalArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //views
         newsRV = findViewById(R.id.idRVNews);
         categoryRV = findViewById(R.id.idRVCategories);
         loadingPB = findViewById(R.id.idPBLoading);
-        newsModelAdapter = new NewsModelAdapter(Utility.articleModelArrayList, this);
-        categoryModelAdapter =  new CategoryModelAdapter(Utility.categoryModelArrayList, this, this::onCategoryClick);
+
+        //arraylist
+        articlesArrayList = new ArrayList<>();
+        categoryRVModalArrayList = new ArrayList<>();
+
+        newsModelAdapter = new NewsModelAdapter(articlesArrayList, this);
+        categoryModelAdapter =  new CategoryModelAdapter(categoryRVModalArrayList, this, this::onCategoryClick);
         newsRV.setLayoutManager(new LinearLayoutManager(this));
         newsRV.setAdapter(newsModelAdapter);
         categoryRV.setAdapter(categoryModelAdapter);
@@ -50,20 +59,20 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void getCategories(){
-        Utility.categoryModelArrayList.add(new CategoryModel("All"));
-        Utility.categoryModelArrayList.add(new CategoryModel("Technology"));
-        Utility.categoryModelArrayList.add(new CategoryModel("Science"));
-        Utility.categoryModelArrayList.add(new CategoryModel("Sports"));
-        Utility.categoryModelArrayList.add(new CategoryModel("General"));
-        Utility.categoryModelArrayList.add(new CategoryModel("Business"));
-        Utility.categoryModelArrayList.add(new CategoryModel("Entertainment"));
-        Utility.categoryModelArrayList.add(new CategoryModel("Health"));
+        categoryRVModalArrayList.add(new CategoryModel("All"));
+        categoryRVModalArrayList.add(new CategoryModel("Technology"));
+        categoryRVModalArrayList.add(new CategoryModel("Science"));
+        categoryRVModalArrayList.add(new CategoryModel("Sports"));
+        categoryRVModalArrayList.add(new CategoryModel("General"));
+        categoryRVModalArrayList.add(new CategoryModel("Business"));
+        categoryRVModalArrayList.add(new CategoryModel("Entertainment"));
+        categoryRVModalArrayList.add(new CategoryModel("Health"));
         categoryModelAdapter.notifyDataSetChanged();
     }
 
     private void getNews(String category){
         loadingPB.setVisibility(View.VISIBLE);
-        Utility.articleModelArrayList.clear();
+        articlesArrayList.clear();
 
         //urls
         String categoryUrl = "https://newsapi.org/v2/top-headlines?country=ph&category="+category+"&apiKey=c5dc361f9ba242cbb050af03e53b022d";
@@ -91,7 +100,8 @@ public class MainActivity extends AppCompatActivity{
                 ArrayList<ArticleModel> articles = newsModal.getArticles();
                 for (int i = 0; i < articles.size(); i++)
                 {
-                    Utility.articleModelArrayList.add(new ArticleModel(articles.get(i).getTitle(), articles.get(i).getAuthor(), articles.get(i).getPublishedAt(),articles.get(i).getDescription(), articles.get(i).getUrlToImage(), articles.get(i).getUrl(), articles.get(i).getContent()));
+                    articlesArrayList.add(new ArticleModel(articles.get(i).getTitle(), articles.get(i).getAuthor(), articles.get(i).getPublishedAt(),
+                            articles.get(i).getDescription(), articles.get(i).getUrlToImage(), articles.get(i).getUrl(), articles.get(i).getContent()));
 
                 }
                 newsModelAdapter.notifyDataSetChanged();
@@ -105,8 +115,9 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+    @Override
     public void onCategoryClick(int position) {
-        String category = Utility.categoryModelArrayList.get(position).getCategory();
+        String category = categoryRVModalArrayList.get(position).getCategory();
         getNews(category);
     }
 }
