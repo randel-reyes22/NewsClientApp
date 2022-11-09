@@ -82,9 +82,11 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
         call.enqueue(new Callback<NewsModel>() {
             @Override
             public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
-                NewsModel newsModal = response.body();
+                NewsModel newsModel = response.body();
+
+                System.out.println(newsModel);
                 progressBar.setVisibility(View.GONE);
-                ArrayList<ArticleModel> articles = newsModal.getArticles();
+                ArrayList<ArticleModel> articles = newsModel.getArticles();
 
                 //add the parse json to the constructor article model
                 for(ArticleModel article: articles){

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newsclientapp.models.ArticleModel;
+import com.example.newsclientapp.utils.Utility;
 import com.squareup.picasso.Picasso;
 
 import java.sql.SQLOutput;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class NewsModelAdapter extends RecyclerView.Adapter<NewsModelAdapter.ViewHolder>{
     private ArrayList<ArticleModel> articleModelArrayList;
     private Context context;
-    private final String emptyImageLink = "https://taawon.com/images_default/default.jpg";
+
 
     public NewsModelAdapter(ArrayList<ArticleModel> articlesArrayList, Context context) {
         this.articleModelArrayList = articlesArrayList;
@@ -37,16 +38,14 @@ public class NewsModelAdapter extends RecyclerView.Adapter<NewsModelAdapter.View
     @Override
     public void onBindViewHolder(@NonNull NewsModelAdapter.ViewHolder container, int position) {
         ArticleModel articles = articleModelArrayList.get(position);
-        container.subTitleTV.setText(articles.getDescription());
         container.titleTV.setText(articles.getTitle());
+        container.subTitleTV.setText(articles.getDescription());
         container.publishedAtTV.setText(articles.getPublishedAt());
 
-        //put the url image in the picasso api]
-        if(articles.getUrlToImage() == null){
-            System.out.println("image is empty");
-            Picasso.get().load(emptyImageLink).into(container.newsIV);
+        //put the url image in the picasso api
+        if(articles.getUrlToImage() == null || articles.getUrlToImage().isEmpty()){
+            Picasso.get().load(Utility.emptyImageLink).into(container.newsIV);
         }else{
-            System.out.println("image is not empty");
             Picasso.get().load(articles.getUrlToImage()).into(container.newsIV);
         }
 
@@ -56,8 +55,8 @@ public class NewsModelAdapter extends RecyclerView.Adapter<NewsModelAdapter.View
                 intent.putExtra("title", articles.getTitle());
                 intent.putExtra("author", articles.getAuthor());
                 intent.putExtra("publishedAt",articles.getPublishedAt());
-                intent.putExtra("content",articles.getContent());
                 intent.putExtra("description",articles.getDescription());
+                intent.putExtra("content",articles.getContent());
                 intent.putExtra("image",articles.getUrlToImage());
                 intent.putExtra("url",articles.getUrl());
                 context.startActivity(intent);

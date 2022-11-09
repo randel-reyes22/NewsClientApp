@@ -17,10 +17,12 @@ import java.util.ArrayList;
 
 public class CategoryModelAdapter extends RecyclerView.Adapter<CategoryModelAdapter.ViewHolder> {
 
-    private ArrayList<CategoryModel> categoryModels;
     private Context context;
+    private ArrayList<CategoryModel> categoryModels;
     private CategoryClickInterface categoryClickInterface;
-    int selectedPosition = 0;
+
+    //current position of category selected
+    private int selectedPosition = 0;
 
     public CategoryModelAdapter(ArrayList<CategoryModel> categoryRVModals, Context context, CategoryClickInterface categoryClickInterface) {
         this.categoryModels = categoryRVModals;
@@ -39,23 +41,17 @@ public class CategoryModelAdapter extends RecyclerView.Adapter<CategoryModelAdap
     public void onBindViewHolder(@NonNull CategoryModelAdapter.ViewHolder holder, int position) {
         CategoryModel categoryRVModal = categoryModels.get(position);
         holder.categoryTV.setText(categoryRVModal.getCategory());
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                int position= holder.getAdapterPosition();
-                categoryClickInterface.onCategoryClick(position);
-                selectedPosition=position;
-                notifyDataSetChanged();
-            }
+        holder.itemView.setOnClickListener(view -> {
+            int position1 = holder.getAdapterPosition();
+            categoryClickInterface.onCategoryClick(position1);
+            selectedPosition= position1;
+            notifyDataSetChanged();
         });
 
-        if(selectedPosition==position)
-        {
+        if(selectedPosition == position) {
             holder.categoryRV.setBackgroundColor(Color.WHITE);
             holder.categoryTV.setTextColor(Color.BLACK);
-        }
-        else
-        {
+        } else {
             holder.categoryRV.setBackgroundColor(0x121212);
             holder.categoryTV.setTextColor(Color.WHITE);
         }

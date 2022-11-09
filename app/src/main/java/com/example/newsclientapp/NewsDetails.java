@@ -3,13 +3,13 @@ package com.example.newsclientapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.newsclientapp.utils.Utility;
 import com.squareup.picasso.Picasso;
 
 public class NewsDetails extends AppCompatActivity {
@@ -42,18 +42,21 @@ public class NewsDetails extends AppCompatActivity {
         publishedAtTV.setText("Date of Published: " + publishedAt);
         subDescriptionTV.setText(description);
         contentTV.setText(content);
-        Picasso.get().load(imageURL).into(newsIV);
+
+        //check image if null
+        if(imageURL == null){
+            System.out.println("image is empty");
+            Picasso.get().load(Utility.emptyImageLink).into(newsIV);
+        }else{
+            System.out.println("image is not empty");
+            Picasso.get().load(imageURL).into(newsIV);
+        }
 
         //show the full story
-        readNewsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
-            }
+        readNewsBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
         });
-
     }
-
 }
