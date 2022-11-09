@@ -25,12 +25,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements CategoryModelAdapter.CategoryClickInterface{
 
-    private RecyclerView newsRV, categoryRV;
-    private ProgressBar loadingPB;
     private CategoryModelAdapter categoryModelAdapter;
     private NewsModelAdapter newsModelAdapter;
-    private ArrayList<ArticleModel> articlesArrayList;
-    private ArrayList<CategoryModel> categoryRVModalArrayList;
+    private RecyclerView newsRV, categoryRV;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,84 +38,72 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
         //views
         newsRV = findViewById(R.id.idRVNews);
         categoryRV = findViewById(R.id.idRVCategories);
-        loadingPB = findViewById(R.id.idPBLoading);
+        progressBar = findViewById(R.id.idPBLoading);
 
         //arraylist
-        articlesArrayList = new ArrayList<>();
-        categoryRVModalArrayList = new ArrayList<>();
+        Utility.articleModelArrayList = new ArrayList<>();
+        Utility.categoryModelArrayList = new ArrayList<>();
 
-        newsModelAdapter = new NewsModelAdapter(articlesArrayList, this);
-        categoryModelAdapter =  new CategoryModelAdapter(categoryRVModalArrayList, this, this::onCategoryClick);
+        newsModelAdapter = new NewsModelAdapter(Utility.articleModelArrayList, this);
+        categoryModelAdapter =  new CategoryModelAdapter(Utility.categoryModelArrayList, this, this::onCategoryClick);
         newsRV.setLayoutManager(new LinearLayoutManager(this));
         newsRV.setAdapter(newsModelAdapter);
         categoryRV.setAdapter(categoryModelAdapter);
 
         //get all categories
-        getCategories();
-        getNews("All");
+        Utility.fetchCategories();
+        categoryModelAdapter.notifyDataSetChanged();
+
+        fetchNews("All");
         newsModelAdapter.notifyDataSetChanged();
     }
 
-    private void getCategories(){
-        categoryRVModalArrayList.add(new CategoryModel("All"));
-        categoryRVModalArrayList.add(new CategoryModel("Technology"));
-        categoryRVModalArrayList.add(new CategoryModel("Science"));
-        categoryRVModalArrayList.add(new CategoryModel("Sports"));
-        categoryRVModalArrayList.add(new CategoryModel("General"));
-        categoryRVModalArrayList.add(new CategoryModel("Business"));
-        categoryRVModalArrayList.add(new CategoryModel("Entertainment"));
-        categoryRVModalArrayList.add(new CategoryModel("Health"));
-        categoryModelAdapter.notifyDataSetChanged();
-    }
+    private void fetchNews(String category){
+        //while fetching the JSON
+        //display progress bar until parsing finishes
+        progressBar.setVisibility(View.VISIBLE);
+        Utility.articleModelArrayList.clear();
 
-    private void getNews(String category){
-        loadingPB.setVisibility(View.VISIBLE);
-        articlesArrayList.clear();
-
-        //urls
-        String categoryUrl = "https://newsapi.org/v2/top-headlines?country=ph&category="+category+"&apiKey=c5dc361f9ba242cbb050af03e53b022d";
-        String url = "https://newsapi.org/v2/top-headlines?country=ph&apiKey=aacbed560bc0495fb66a35c90f0d0852";
-        String BASE_URL = "https://newsapi.org/";
+        //api call and parse the JSON
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Utility.URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetroFitAPI retrofitAPI = retrofit.create(RetroFitAPI.class);
         Call<NewsModel> call;
 
         if(category.equals("All")){
-            call = retrofitAPI.getAllNews(url);
+            call = retrofitAPI.getAllNews(Utility.ALL_URL);
         }
         else{
-            call = retrofitAPI.getNewsByCategory(categoryUrl);
+            call = retrofitAPI.getNewsByCategory(Utility.categoryURI(category));
         }
 
         call.enqueue(new Callback<NewsModel>() {
             @Override
             public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
                 NewsModel newsModal = response.body();
-                loadingPB.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 ArrayList<ArticleModel> articles = newsModal.getArticles();
-                for (int i = 0; i < articles.size(); i++)
-                {
-                    articlesArrayList.add(new ArticleModel(articles.get(i).getTitle(), articles.get(i).getAuthor(), articles.get(i).getPublishedAt(),
-                            articles.get(i).getDescription(), articles.get(i).getUrlToImage(), articles.get(i).getUrl(), articles.get(i).getContent()));
 
+                //add the parse json to the constructor article model
+                for(ArticleModel article: articles){
+                    Utility.articleModelArrayList.add(new ArticleModel(article.getTitle(), article.getAuthor(), article.getPublishedAt(), article.getDescription(),
+                            article.getUrlToImage(), article.getUrl(), article.getContent()));
                 }
                 newsModelAdapter.notifyDataSetChanged();
-
             }
 
             @Override
             public void onFailure(Call<NewsModel> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Fail to get news", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Something went wrong while fetching news", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public void onCategoryClick(int position) {
-        String category = categoryRVModalArrayList.get(position).getCategory();
-        getNews(category);
+        String category = Utility.categoryModelArrayList.get(position).getCategory();
+        fetchNews(category);
     }
 }

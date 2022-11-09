@@ -5,14 +5,18 @@
     android:layout_height="30dp"
     android:layout_gravity="center"
     android:layout_margin="5dp"
+    android:elevation="0dp"
+    android:fadingEdge="horizontal"
     app:cardBackgroundColor="#121212"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="15dp"
+    app:cardElevation="0dp">
 
     <RelativeLayout
-        android:id="@+id/idCVCategory"
+        android:id="@+id/idCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#121212">
+        android:background="#00121212"
+        android:elevation="0dp">
 
         <TextView
             android:id="@+id/idTVCategory"

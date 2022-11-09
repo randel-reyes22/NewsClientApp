@@ -75,7 +75,7 @@ public class CategoryModelAdapter extends RecyclerView.Adapter<CategoryModelAdap
         private RelativeLayout categoryRV;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            categoryRV = itemView.findViewById(R.id.idCVCategory);
+            categoryRV = itemView.findViewById(R.id.idCategory);
             categoryTV = itemView.findViewById(R.id.idTVCategory);
 
         }
