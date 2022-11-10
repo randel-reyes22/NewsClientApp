@@ -7,10 +7,15 @@ import java.util.ArrayList;
 
 public class Utility {
     //URLs
-    private static final String caterogiesURI = "https://newsapi.org/v2/top-headlines?country=ph&category=";
-    private static final String apiKey = "&apiKey=c5dc361f9ba242cbb050af03e53b022d";
+    private static final String categoriesURI = "https://newsapi.org/v2/top-headlines?country=ph&category=";
+    //private static final String apiKey = "&apiKey=c5dc361f9ba242cbb050af03e53b022d";
+    private static final String apiKey = "&apiKey=aacbed560bc0495fb66a35c90f0d0852";
+
     public static final String URL = "https://newsapi.org/";
     public static final String ALL_URL = "https://newsapi.org/v2/top-headlines?country=ph" + apiKey;
+
+    //image empty URL
+    public static final String emptyImageLink = "https://taawon.com/images_default/default.jpg";
 
     //lists
     public static ArrayList<ArticleModel> articleModelArrayList;
@@ -28,6 +33,6 @@ public class Utility {
     }
 
     public static String categoryURI(String category){
-        return caterogiesURI + category +  apiKey;
+        return categoriesURI + category +  apiKey;
     }
 }

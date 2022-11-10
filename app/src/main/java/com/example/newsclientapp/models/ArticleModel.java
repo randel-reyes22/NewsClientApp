@@ -1,7 +1,6 @@
 package com.example.newsclientapp.models;
 
-import java.time.Instant;
-
+import com.example.newsclientapp.utils.Utility;
 
 public class ArticleModel {
     private String title;
@@ -23,7 +22,7 @@ public class ArticleModel {
     }
 
     public String getTitle() {
-        return title;
+        return title == null || title.isEmpty() ? "No title" : title;
     }
 
     public void setTitle(String title) {
@@ -31,7 +30,7 @@ public class ArticleModel {
     }
 
     public String getAuthor() {
-        return author;
+        return author == null || author.isEmpty() ? "No author" : author;
     }
 
     public void setAuthor(String author) {
@@ -47,7 +46,7 @@ public class ArticleModel {
     }
 
     public String getDescription() {
-        return description;
+        return description == null || description.isEmpty() ? "No description" : description;
     }
 
     public void setDescription(String description) {
@@ -55,7 +54,7 @@ public class ArticleModel {
     }
 
     public String getUrlToImage() {
-        return urlToImage;
+        return urlToImage == null || urlToImage.isEmpty() ? Utility.emptyImageLink : urlToImage;
     }
 
     public void setUrlToImage(String urlToImage) {
@@ -63,7 +62,7 @@ public class ArticleModel {
     }
 
     public String getUrl() {
-        return url;
+        return url == null || url.isEmpty() ? "No URL" : url;
     }
 
     public void setUrl(String url) {
@@ -71,7 +70,7 @@ public class ArticleModel {
     }
 
     public String getContent() {
-        return content;
+        return content == null || content.isEmpty() ? "No content" : content;
     }
 
     public void setContent(String content) {

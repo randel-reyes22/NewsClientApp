@@ -25,10 +25,10 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:padding="3dp"
-            android:text="Category"
+            android:text="@string/category"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
