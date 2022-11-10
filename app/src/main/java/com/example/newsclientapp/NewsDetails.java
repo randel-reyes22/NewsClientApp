@@ -36,10 +36,10 @@ public class NewsDetails extends AppCompatActivity {
         ImageView newsIV = findViewById(R.id.idIVNews);
         Button readNewsBtn = findViewById(R.id.idBtnReadNews);
 
-        //change text and set url image
+        //set text and url image
         titleTV.setText(title);
-        authorTV.setText("By: " + author);
-        publishedAtTV.setText("Date of Published: " + publishedAt);
+        authorTV.setText(author);
+        publishedAtTV.setText(publishedAt);
         subDescriptionTV.setText(description);
         contentTV.setText(content);
 

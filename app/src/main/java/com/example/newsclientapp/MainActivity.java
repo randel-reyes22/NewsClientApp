@@ -9,9 +9,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.newsclientapp.adapters.CategoryModelAdapter;
+import com.example.newsclientapp.adapters.NewsModelAdapter;
 import com.example.newsclientapp.interfaces.RetroFitAPI;
 import com.example.newsclientapp.models.ArticleModel;
-import com.example.newsclientapp.models.CategoryModel;
 import com.example.newsclientapp.models.NewsModel;
 import com.example.newsclientapp.utils.Utility;
 
@@ -44,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
         Utility.articleModelArrayList = new ArrayList<>();
         Utility.categoryModelArrayList = new ArrayList<>();
 
-        newsModelAdapter = new NewsModelAdapter(Utility.articleModelArrayList, this);
-        categoryModelAdapter =  new CategoryModelAdapter(Utility.categoryModelArrayList, this, this::onCategoryClick);
+        newsModelAdapter = new NewsModelAdapter(this);
+        categoryModelAdapter =  new CategoryModelAdapter(this, this::onCategoryClick);
         newsRV.setLayoutManager(new LinearLayoutManager(this));
         newsRV.setAdapter(newsModelAdapter);
         categoryRV.setAdapter(categoryModelAdapter);
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
             public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
                 NewsModel newsModel = response.body();
 
-                System.out.println(newsModel);
                 progressBar.setVisibility(View.GONE);
                 ArrayList<ArticleModel> articles = newsModel.getArticles();
 
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
                     Utility.articleModelArrayList.add(new ArticleModel(article.getTitle(), article.getAuthor(), article.getPublishedAt(), article.getDescription(),
                             article.getUrlToImage(), article.getUrl(), article.getContent()));
                 }
-                newsModelAdapter.notifyDataSetChanged();
+                //newsModelAdapter.notifyDataSetChanged();
             }
 
             @Override

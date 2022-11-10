@@ -54,7 +54,7 @@ public class ArticleModel {
     }
 
     public String getUrlToImage() {
-        return urlToImage;
+        return urlToImage == null || urlToImage.isEmpty() ? Utility.emptyImageLink : urlToImage;
     }
 
     public void setUrlToImage(String urlToImage) {
@@ -62,7 +62,7 @@ public class ArticleModel {
     }
 
     public String getUrl() {
-        return url;
+        return url == null || url.isEmpty() ? "No URL" : url;
     }
 
     public void setUrl(String url) {
