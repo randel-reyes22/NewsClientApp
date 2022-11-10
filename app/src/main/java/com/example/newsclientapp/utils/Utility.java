@@ -3,7 +3,9 @@ package com.example.newsclientapp.utils;
 import com.example.newsclientapp.models.ArticleModel;
 import com.example.newsclientapp.models.CategoryModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Utility {
     //URLs
@@ -17,19 +19,11 @@ public class Utility {
     public static final String emptyImageLink = "https://taawon.com/images_default/default.jpg";
 
     //lists
-    public static ArrayList<ArticleModel> articleModelArrayList;
-    public static ArrayList<CategoryModel> categoryModelArrayList;
-
-    //categories that will be displayed at home
-    public static void fetchCategories(){
-        categoryModelArrayList.add(new CategoryModel("All"));
-        categoryModelArrayList.add(new CategoryModel("Business"));
-        categoryModelArrayList.add(new CategoryModel("Technology"));
-        categoryModelArrayList.add(new CategoryModel("Entertainment"));
-        categoryModelArrayList.add(new CategoryModel("Sports"));
-        categoryModelArrayList.add(new CategoryModel("Science"));
-        categoryModelArrayList.add(new CategoryModel("Health"));
-    }
+    public static ArrayList<ArticleModel> articleModelArrayList = new ArrayList<>();
+    public static final ArrayList<CategoryModel> categoryModelArrayList = new ArrayList<>(
+            Arrays.asList(new CategoryModel("All"), new CategoryModel("Business"), new CategoryModel("Technology"),
+                    new CategoryModel("Entertainment"), new CategoryModel("Sports"), new CategoryModel("Science"),
+                    new CategoryModel("Health")));
 
     public static String categoryURI(String category){
         return categoriesURI + category +  apiKey;

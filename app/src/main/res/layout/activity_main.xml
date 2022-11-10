@@ -11,12 +11,12 @@
         android:id="@+id/idRVCategories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/category_items">
-    </androidx.recyclerview.widget.RecyclerView>
+        tools:listitem="@layout/category_items"></androidx.recyclerview.widget.RecyclerView>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -32,7 +32,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <ProgressBar
-        android:id="@+id/idPBLoading"
+        android:id="@+id/idCircularProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

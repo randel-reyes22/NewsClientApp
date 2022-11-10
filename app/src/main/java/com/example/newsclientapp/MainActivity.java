@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.newsclientapp.adapters.CategoryModelAdapter;
 import com.example.newsclientapp.adapters.NewsModelAdapter;
-import com.example.newsclientapp.interfaces.RetroFitAPI;
+import com.example.newsclientapp.interfaces.IRetroFitAPI;
 import com.example.newsclientapp.models.ArticleModel;
 import com.example.newsclientapp.models.NewsModel;
 import com.example.newsclientapp.utils.Utility;
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
     private NewsModelAdapter newsModelAdapter;
     private RecyclerView newsRV, categoryRV;
     private ProgressBar progressBar;
+    private final String all = "All";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,7 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
         //views
         newsRV = findViewById(R.id.idRVNews);
         categoryRV = findViewById(R.id.idRVCategories);
-        progressBar = findViewById(R.id.idPBLoading);
-
-        //arraylist
-        Utility.articleModelArrayList = new ArrayList<>();
-        Utility.categoryModelArrayList = new ArrayList<>();
+        progressBar = findViewById(R.id.idCircularProgress);
 
         newsModelAdapter = new NewsModelAdapter(this);
         categoryModelAdapter =  new CategoryModelAdapter(this, this::onCategoryClick);
@@ -51,11 +48,7 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
         newsRV.setAdapter(newsModelAdapter);
         categoryRV.setAdapter(categoryModelAdapter);
 
-        //get all categories
-        Utility.fetchCategories();
-        categoryModelAdapter.notifyDataSetChanged();
-
-        fetchNews("All");
+        fetchNews(all);
         newsModelAdapter.notifyDataSetChanged();
     }
 
@@ -70,10 +63,11 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
                 .baseUrl(Utility.URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        RetroFitAPI retrofitAPI = retrofit.create(RetroFitAPI.class);
+
+        IRetroFitAPI retrofitAPI = retrofit.create(IRetroFitAPI.class);  //GET method
         Call<NewsModel> call;
 
-        if(category.equals("All")){
+        if(category.equals(all)){
             call = retrofitAPI.getAllNews(Utility.ALL_URL);
         }
         else{
