@@ -20,48 +20,11 @@ public class CategoryModelAdapter extends RecyclerView.Adapter<CategoryModelAdap
     private CategoryClickInterface categoryClickInterface;
 
     //current position of category selected
-    private int selectedPosition = 0;
+    private int selectedCategoryIndex = 0;
 
     public CategoryModelAdapter(Context context, CategoryClickInterface categoryClickInterface) {
         this.context = context;
         this.categoryClickInterface = categoryClickInterface;
-    }
-
-    @NonNull
-    @Override
-    public CategoryModelAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_items,parent,false);
-        return new CategoryModelAdapter.ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull CategoryModelAdapter.ViewHolder holder, int position) {
-        CategoryModel categoryRVModal = Utility.categoryModelArrayList.get(position);
-        holder.categoryTV.setText(categoryRVModal.getCategory());
-        holder.itemView.setOnClickListener(view -> {
-            int position1 = holder.getAdapterPosition();
-            categoryClickInterface.onCategoryClick(position1);
-            selectedPosition= position1;
-            notifyDataSetChanged();
-        });
-
-        if(selectedPosition == position) {
-            holder.categoryTV.setTextColor(Color.parseColor("#BB86FC"));
-            holder.lineDivider.setVisibility(View.VISIBLE);
-            holder.lineDivider.setBackgroundColor(Color.parseColor("#BB86FC"));
-        } else {
-            holder.categoryTV.setTextColor(Color.parseColor("#B3ADAD"));
-            holder.lineDivider.setVisibility(View.GONE);
-        }
-    }
-
-    public interface CategoryClickInterface{
-        void onCategoryClick(int position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return Utility.categoryModelArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -73,6 +36,45 @@ public class CategoryModelAdapter extends RecyclerView.Adapter<CategoryModelAdap
             categoryRL = itemView.findViewById(R.id.idCategory);
             categoryTV = itemView.findViewById(R.id.idTVCategory);
             lineDivider = itemView.findViewById(R.id.idDividerCategory);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return Utility.categoryModelArrayList.size();
+    }
+
+    public interface CategoryClickInterface{
+        void onCategoryClick(int position);
+    }
+
+    @NonNull
+    @Override
+    public CategoryModelAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_items,parent,false);
+        return new CategoryModelAdapter.ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull CategoryModelAdapter.ViewHolder holder, int position) {
+        //get the index of the selected category
+        CategoryModel categoryRVModal = Utility.categoryModelArrayList.get(position);
+
+        holder.categoryTV.setText(categoryRVModal.getCategory());
+        holder.itemView.setOnClickListener(view -> {
+            int index = holder.getAdapterPosition();
+            categoryClickInterface.onCategoryClick(index);
+            selectedCategoryIndex = index;
+            notifyDataSetChanged();
+        });
+
+        if(selectedCategoryIndex == position) {
+            holder.categoryTV.setTextColor(Color.parseColor("#BB86FC"));
+            holder.lineDivider.setVisibility(View.VISIBLE);
+            holder.lineDivider.setBackgroundColor(Color.parseColor("#BB86FC"));
+        } else {
+            holder.categoryTV.setTextColor(Color.parseColor("#B3ADAD"));
+            holder.lineDivider.setVisibility(View.GONE);
         }
     }
 }
