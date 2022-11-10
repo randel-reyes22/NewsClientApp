@@ -22,10 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginRight="3dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/black"
                 android:elevation="10dp"
@@ -44,7 +42,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:padding="5dp"
-                android:text="Title"
+                android:text="@string/title"
                 android:textColor="@color/white"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -61,7 +59,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:padding="5dp"
-                android:text="Author"
+                android:text="@string/author"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="normal" />
@@ -78,9 +76,9 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:padding="5dp"
-                android:text="Published At"
+                android:text="@string/published_at"
                 android:textColor="@color/white"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:textStyle="normal" />
 
 
@@ -96,7 +94,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:padding="5dp"
-                android:text="Sub Description"
+                android:text="@string/sub_description"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -112,7 +110,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:padding="5dp"
-                android:text="Content"
+                android:text="@string/content"
                 android:textColor="@color/white" />
         </RelativeLayout>
     </ScrollView>
@@ -128,7 +126,7 @@
         android:gravity="center"
         android:insetLeft="20dp"
         android:insetRight="20dp"
-        android:text="Read full coverage of this news"
+        android:text="@string/read_full_coverage_of_this_news"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="12sp"

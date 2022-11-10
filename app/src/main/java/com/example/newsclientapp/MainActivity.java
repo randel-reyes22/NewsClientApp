@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
                     Utility.articleModelArrayList.add(new ArticleModel(article.getTitle(), article.getAuthor(), article.getPublishedAt(), article.getDescription(),
                             article.getUrlToImage(), article.getUrl(), article.getContent()));
                 }
-                //newsModelAdapter.notifyDataSetChanged();
+                newsModelAdapter.notifyDataSetChanged();
             }
 
             @Override
