@@ -46,11 +46,12 @@ public class CategoryModelAdapter extends RecyclerView.Adapter<CategoryModelAdap
         });
 
         if(selectedPosition == position) {
-            holder.categoryRV.setBackgroundColor(Color.WHITE);
-            holder.categoryTV.setTextColor(Color.BLACK);
+            holder.categoryTV.setTextColor(Color.parseColor("#BB86FC"));
+            holder.lineDivider.setVisibility(View.VISIBLE);
+            holder.lineDivider.setBackgroundColor(Color.parseColor("#BB86FC"));
         } else {
-            holder.categoryRV.setBackgroundColor(0x121212);
-            holder.categoryTV.setTextColor(Color.WHITE);
+            holder.categoryTV.setTextColor(Color.parseColor("#B3ADAD"));
+            holder.lineDivider.setVisibility(View.GONE);
         }
     }
 
@@ -65,11 +66,13 @@ public class CategoryModelAdapter extends RecyclerView.Adapter<CategoryModelAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView categoryTV;
-        private RelativeLayout categoryRV;
+        private View lineDivider;
+        private RelativeLayout categoryRL;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            categoryRV = itemView.findViewById(R.id.idCategory);
+            categoryRL = itemView.findViewById(R.id.idCategory);
             categoryTV = itemView.findViewById(R.id.idTVCategory);
+            lineDivider = itemView.findViewById(R.id.idDividerCategory);
         }
     }
 }

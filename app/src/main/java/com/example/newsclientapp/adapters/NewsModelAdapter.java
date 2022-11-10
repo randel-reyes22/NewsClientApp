@@ -19,7 +19,6 @@ import com.squareup.picasso.Picasso;
 
 public class NewsModelAdapter extends RecyclerView.Adapter<NewsModelAdapter.ViewHolder>{
     private Context context;
-
     public NewsModelAdapter(Context context) {
         this.context = context;
     }

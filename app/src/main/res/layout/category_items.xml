@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="100dp"
-    android:layout_height="30dp"
+    android:layout_width="wrap_content"
+    android:layout_height="40dp"
     android:layout_gravity="center"
     android:layout_margin="5dp"
     android:elevation="0dp"
     android:fadingEdge="horizontal"
-    app:cardBackgroundColor="#121212"
-    app:cardCornerRadius="15dp"
-    app:cardElevation="0dp">
+    app:cardBackgroundColor="#00121212"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp"
+    app:cardMaxElevation="0dp">
 
     <RelativeLayout
         android:id="@+id/idCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00121212"
-        android:elevation="0dp">
+        android:elevation="0dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <TextView
             android:id="@+id/idTVCategory"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:padding="3dp"
             android:text="@string/category"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="#B3ADAD"
             android:textStyle="bold" />
+
+        <View
+            android:id="@+id/idDividerCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_alignStart="@+id/idTVCategory"
+            android:layout_alignEnd="@+id/idTVCategory"
+            android:layout_marginTop="35dp"
+            android:background="?android:attr/listDivider" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
