@@ -63,7 +63,6 @@ public class NewsModelAdapter extends RecyclerView.Adapter<NewsModelAdapter.View
         //call the news details layout
         //listens for clicks in the containers
         callNewsDetailsView(container, article);
-
     }
 
     private void callNewsDetailsView(@NonNull NewsModelAdapter.ViewHolder container, ArticleModel arc){
