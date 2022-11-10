@@ -54,11 +54,7 @@ public class NewsModelAdapter extends RecyclerView.Adapter<NewsModelAdapter.View
         container.publishedAtTV.setText(article.getPublishedAt());
 
         //put the url image in the picasso api
-        if(article.getUrlToImage() == null || article.getUrlToImage().isEmpty()){
-            Picasso.get().load(Utility.emptyImageLink).into(container.newsIV);
-        }else{
-            Picasso.get().load(article.getUrlToImage()).into(container.newsIV);
-        }
+        Picasso.get().load(article.getUrlToImage()).into(container.newsIV);
 
         //call the news details layout
         //listens for clicks in the containers

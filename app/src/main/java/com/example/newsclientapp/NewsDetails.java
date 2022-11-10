@@ -19,38 +19,31 @@ public class NewsDetails extends AppCompatActivity {
         setContentView(R.layout.news_details);
 
         //get data
+        String imageURL = getIntent().getStringExtra("image");
         String title = getIntent().getStringExtra("title");
         String author = getIntent().getStringExtra("author");
         String publishedAt = getIntent().getStringExtra("publishedAt");
         String description = getIntent().getStringExtra("description");
         String content = getIntent().getStringExtra("content");
-        String imageURL = getIntent().getStringExtra("image");
         String url = getIntent().getStringExtra("url");
 
         //widgets
+        ImageView newsIV = findViewById(R.id.idIVNews);
         TextView titleTV = findViewById(R.id.idTVTitle);
         TextView authorTV = findViewById(R.id.idTVAuthor);
-        TextView publishedAtTV = findViewById(R.id.idTVPublishedAt);
         TextView subDescriptionTV = findViewById(R.id.idTVSubDescription);
         TextView contentTV = findViewById(R.id.idTVContent);
-        ImageView newsIV = findViewById(R.id.idIVNews);
         Button readNewsBtn = findViewById(R.id.idBtnReadNews);
 
+        //load image
+        Picasso.get().load(imageURL).into(newsIV);
+
         //set text and url image
+        //check image if null
         titleTV.setText(title);
-        authorTV.setText(author);
-        publishedAtTV.setText(publishedAt);
+        authorTV.setText(author + ", " + publishedAt);
         subDescriptionTV.setText(description);
         contentTV.setText(content);
-
-        //check image if null
-        if(imageURL == null){
-            System.out.println("image is empty");
-            Picasso.get().load(Utility.emptyImageLink).into(newsIV);
-        }else{
-            System.out.println("image is not empty");
-            Picasso.get().load(imageURL).into(newsIV);
-        }
 
         //show the full story
         readNewsBtn.setOnClickListener(view -> {
