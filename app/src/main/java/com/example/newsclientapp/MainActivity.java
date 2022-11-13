@@ -2,6 +2,7 @@ package com.example.newsclientapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         //views
         newsRV = findViewById(R.id.idRVNews);
         categoryRV = findViewById(R.id.idRVCategories);
@@ -39,13 +43,14 @@ public class MainActivity extends AppCompatActivity implements CategoryModelAdap
         newsRV.setAdapter(newsModelAdapter);
         categoryRV.setAdapter(categoryModelAdapter);
 
-        getData.fetchNews(all, this.context, progressBar, newsModelAdapter);
+        getData.fetchNews(all, this.context, progressBar);
         newsModelAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onCategoryClick(int position) {
         String category = Utility.categoryModelArrayList.get(position).getCategory();
-        getData.fetchNews(category, this.context, progressBar, newsModelAdapter);
+        getData.fetchNews(category, this.context, progressBar);
+        newsModelAdapter.notifyDataSetChanged();
     }
 }
